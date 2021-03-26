@@ -4,11 +4,11 @@ package com.timothe.foodapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
+import com.timothe.foodapp.ViewModel.ActivityScanViewModel
 import com.timothe.foodapp.databinding.ActivityScanBinding
 
 
@@ -29,6 +29,7 @@ class ActivityScan : AppCompatActivity() {
 
 
             scanner.initiateScan()
+
         }
 
     }
@@ -42,12 +43,17 @@ class ActivityScan : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG)
                         .show()
+
+                    val intent = Intent(this@ActivityScan,MainActivity::class.java)
+                    intent.putExtra("codeBare",result.contents)
+                    startActivity(intent)
+
                 }
+
             } else {
                 super.onActivityResult(requestCode, resultCode, data)
             }
         }
     }
-
 
 }
